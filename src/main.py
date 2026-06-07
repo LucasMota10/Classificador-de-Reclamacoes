@@ -23,7 +23,7 @@ class ClassificadorReclamacao:
         :param k: Número de vizinhos mais próximos a serem considerados pelo KNN.
         :return:
         '''
-        self.modelo_encoder = SentenceTransformer('paraphrase-multilingual-MiniLM-L12-v2')
+        self.modelo_encoder = SentenceTransformer('paraphrase-multilingual-mpnet-base-v2')
         self.knn = KNeighborsClassifier(n_neighbors=k, metric='cosine')
     
     def carregar_dados(self, caminho: str = '../data/*.json') -> pd.DataFrame:
@@ -139,7 +139,7 @@ class ClassificadorReclamacao:
 if __name__ == "__main__":
 
     
-    classificador = ClassificadorReclamacao(k=5)
+    classificador = ClassificadorReclamacao(k=20)
     df_dados = classificador.carregar_dados()
     X, y = classificador.preparar_dados(df_dados)
     X_test, y_test = classificador.treinar_modelo(X, y)
